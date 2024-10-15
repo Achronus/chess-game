@@ -1,0 +1,41 @@
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# User-specific folders
+.vscode/
+.vs/
+
+# Build results
+[Bb]in/
+[Oo]bj/
+
+# NuGet packages
+*.nupkg
+# Uncomment if using NuGet Package Restore
+# packages/
+# Uncomment if using .NET Core and running `dotnet restore` to restore NuGet packages
+# **/project.lock.json
+# **/project.fragment.lock.json
+# *.nuget/packages/
+
+# MacOS-specific files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# Entity Framework Core migrations
+[Mm]igrations/
+
+# Resharper
+_ReSharper*/
+*.DotSettings.user
+
+# ASP.NET User-specific folders
+wwwroot/
