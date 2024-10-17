@@ -7,9 +7,15 @@ namespace Chess.Core
     public Board() { 
     
     }
+
     public void Init()
     {
 
+    }
+
+    public bool IsGameOver()
+    {
+      return true;
     }
   }
 }

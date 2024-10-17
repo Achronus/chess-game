@@ -1,15 +1,21 @@
 using Chess.Core;
 
-class Program
+namespace Chess
 {
-  static void Main(string[] args)
+  internal class Program
   {
-    Board chessBoard = new Board();
-    chessBoard.Init();
-
-    while (true)
+    static void Main(string[] args)
     {
+      Board chessBoard = new Board();
+      chessBoard.Init();
 
+      while (true)
+      {
+        if (chessBoard.IsGameOver())
+        {
+          break;
+        }
+      }
     }
   }
 }
