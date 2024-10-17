@@ -36,11 +36,6 @@ namespace Chess.Core
       }
     }
 
-    public bool IsGameOver()
-    {
-      return true;
-    }
-
     private static Piece CreatePiece(PieceType type, Colour colour)
     {
       return type switch
