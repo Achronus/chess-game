@@ -1,14 +1,9 @@
 namespace Chess.Core
 {
-  public class Game
+  public class Game(Player white, Player black)
   {
-    public Player White { get; }
-    public Player Black { get; }
-
-    public Game(Player white, Player black) {
-      White = white;
-      Black = black;
-    }
+    public Player White { get; } = white;
+    public Player Black { get; } = black;
 
     public bool IsGameOver()
     {

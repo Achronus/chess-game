@@ -1,12 +1,7 @@
 namespace Chess.Core
 {
-  public class Player
+  public class Player(Colour colour)
   {
-    public Colour Colour { get; }
-
-    public Player(Colour colour)
-    {
-      Colour = colour;
-    }
+    public Colour Colour { get; } = colour;
   }
 }
