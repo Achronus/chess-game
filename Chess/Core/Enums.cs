@@ -15,4 +15,16 @@
     King,
     Queen
   }
+
+  public enum DirectionType
+  {
+    NorthEast,
+    North,
+    NorthWest,
+    East,
+    SouthEast,
+    South,
+    SouthWest,
+    West
+  }
 }
