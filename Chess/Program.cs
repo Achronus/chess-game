@@ -11,8 +11,7 @@ namespace Chess
         black: new Player(Colour.Black)
       );
       
-      Board chessBoard = new Board();
-      chessBoard.Init();
+      Board chessBoard = Board.Setup();
 
       while (true)
       {
