@@ -2,24 +2,23 @@ using Chess.Core;
 
 namespace Chess
 {
-  internal class Program
-  {
-    static void Main(string[] args)
+    internal class Program
     {
-      Game match = new Game(
-        white: new Player(Colour.White), 
-        black: new Player(Colour.Black)
-      );
-      
-      Board chessBoard = Board.Setup();
-
-      while (true)
-      {
-        if (match.IsGameOver())
+        static void Main(string[] args)
         {
-          break;
+            Player white = new Player(Colour.White);
+            Player black = new Player(Colour.Black);
+            Board chessBoard = Board.Setup();
+
+            GameState match = new GameState(white, chessBoard);
+
+            while (true)
+            {
+                if (match.IsGameOver())
+                {
+                    break;
+                }
+            }
         }
-      }
     }
-  }
 }
