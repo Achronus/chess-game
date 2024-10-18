@@ -1,39 +1,31 @@
 ﻿namespace Chess.Core
 {
-  public class Direction(int rowDelta, int columnDelta)
-  {
-    public readonly static Direction North = new Direction(-1, 0);
-    public readonly static Direction East = new Direction(0, 1);
-    public readonly static Direction South = new Direction(1, 0);
-    public readonly static Direction West = new Direction(0, -1);
-
-    public int RowDelta { get; } = rowDelta;
-    public int ColumnDelta { get; } = columnDelta;
-
-    public static Direction operator + (Direction dir1, Direction dir2)
+    public static class Direction
     {
-      return new Direction(dir1.RowDelta + dir2.RowDelta, dir1.ColumnDelta + dir2.ColumnDelta);
-    }
+        public readonly static Vector2D North = new Vector2D(-1, 0);
+        public readonly static Vector2D East = new Vector2D(0, 1);
+        public readonly static Vector2D South = new Vector2D(1, 0);
+        public readonly static Vector2D West = new Vector2D(0, -1);
 
-    public static Direction operator * (int scalar, Direction dir)
-    {
-      return new Direction(scalar * dir.RowDelta, scalar * dir.ColumnDelta);
-    }
+        public readonly static Vector2D NorthEast = North + East;
+        public readonly static Vector2D NorthWest = North + West;
+        public readonly static Vector2D SouthWest = South + West;
+        public readonly static Vector2D SouthEast = South + East;
 
-    public static Direction GetDirection(DirectionType position)
-    {
-      return position switch
-      {
-        DirectionType.North => North,
-        DirectionType.East => East,
-        DirectionType.South => South,
-        DirectionType.West => West,
-        DirectionType.NorthEast => North + East,
-        DirectionType.NorthWest => North + West,
-        DirectionType.SouthWest => South + West,
-        DirectionType.SouthEast => South + East,
-        _ => throw new ArgumentException("Invalid direction type")
-      };
+        public static Vector2D GetDirection(DirectionType direction)
+        {
+            return direction switch
+            {
+            DirectionType.North => North,
+            DirectionType.East => East,
+            DirectionType.South => South,
+            DirectionType.West => West,
+            DirectionType.NorthEast => NorthEast,
+            DirectionType.NorthWest => NorthWest,
+            DirectionType.SouthWest => SouthWest,
+            DirectionType.SouthEast => SouthEast,
+            _ => throw new ArgumentException("Invalid direction type")
+            };
+        }
     }
-  }
 }
