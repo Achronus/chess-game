@@ -2,15 +2,15 @@
 {
     public static class Direction
     {
-        public readonly static Vector2D North = new Vector2D(-1, 0);
-        public readonly static Vector2D East = new Vector2D(0, 1);
-        public readonly static Vector2D South = new Vector2D(1, 0);
-        public readonly static Vector2D West = new Vector2D(0, -1);
+        public static Vector2D North { get; } = new Vector2D(-1, 0);
+        public static Vector2D East { get; } = new Vector2D(0, 1);
+        public static Vector2D South { get; } = new Vector2D(1, 0);
+        public static Vector2D West { get; } = new Vector2D(0, -1);
 
-        public readonly static Vector2D NorthEast = North + East;
-        public readonly static Vector2D NorthWest = North + West;
-        public readonly static Vector2D SouthWest = South + West;
-        public readonly static Vector2D SouthEast = South + East;
+        public static Vector2D NorthEast { get; } = North + East;
+        public static Vector2D NorthWest { get; } = North + West;
+        public static Vector2D SouthWest { get; } = South + West;
+        public static Vector2D SouthEast { get; } = South + East;
 
         public static Vector2D GetDirection(DirectionType direction)
         {
