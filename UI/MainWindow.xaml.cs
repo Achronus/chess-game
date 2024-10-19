@@ -11,11 +11,13 @@ namespace UI
     /// </summary>
     public partial class MainWindow : Window
     {
-        private Image[,] Pieces { get; } = new Image[8, 8];
+        private Image[,] PieceImages { get; }
         private GameState Match { get; set; }
 
         public MainWindow()
         {
+            PieceImages = new Image[Board.RowSize, Board.ColSize];
+
             InitializeComponent();
             SetupBoard();
 
@@ -36,12 +38,12 @@ namespace UI
 
         private void SetupBoard()
         {
-            for (int r = 0; r < Pieces.GetLength(0); r++)
+            for (int r = 0; r < PieceImages.GetLength(0); r++)
             {
-                for (int c = 0; c < Pieces.GetLength(1); c++)
+                for (int c = 0; c < PieceImages.GetLength(1); c++)
                 {
                     Image image = new Image();
-                    Pieces[r, c] = image;
+                    PieceImages[r, c] = image;
                     PieceGrid.Children.Add(image);
                 }
             }
@@ -49,12 +51,12 @@ namespace UI
 
         private void DrawBoard(Board board)
         {
-            for (int r = 0; r < Pieces.GetLength(0); r++)
+            for (int r = 0; r < PieceImages.GetLength(0); r++)
             {
-                for (int c = 0; c < Pieces.GetLength(1); c++)
+                for (int c = 0; c < PieceImages.GetLength(1); c++)
                 {
                     Piece piece = board[r, c];
-                    Pieces[r, c].Source = Images.GetImage(piece);
+                    PieceImages[r, c].Source = Images.GetImage(piece);
                 }
             }
         }

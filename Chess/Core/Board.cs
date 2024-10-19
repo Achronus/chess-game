@@ -1,15 +1,17 @@
-﻿using Chess.Pieces;
+using Chess.Pieces;
 
 namespace Chess.Core
 {
     public class Board
     {
-        private readonly Piece[,] pieces = new Piece[8, 8];
+        public static int RowSize { get; } = 8;
+        public static int ColSize { get; } = 8;
+        private Piece[,] Pieces { get; } = new Piece[RowSize, ColSize];
     
         public Piece this[int row, int col]
         { 
-            get => pieces[row, col];
-            set => pieces[row, col] = value;
+            get => Pieces[row, col];
+            set => Pieces[row, col] = value;
         }
 
         public Piece this[Vector2D pos]
@@ -40,14 +42,14 @@ namespace Chess.Core
 
             for (int i = 0; i < backRow.Length; i++)
             {
-                pieces[0, i] = CreatePiece(backRow[i], Colour.Black);
-                pieces[pieces.GetLength(0) - 1, i] = CreatePiece(backRow[i], Colour.White);
+                Pieces[0, i] = CreatePiece(backRow[i], Colour.Black);
+                Pieces[Pieces.GetLength(0) - 1, i] = CreatePiece(backRow[i], Colour.White);
             }
 
-            for (int i = 0; i < pieces.GetLength(0); i++)
+            for (int i = 0; i < RowSize; i++)
             {
-                pieces[1, i] = CreatePiece(PieceType.Pawn, Colour.Black);
-                pieces[pieces.GetLength(0) - 2, i] = CreatePiece(PieceType.Pawn, Colour.White);
+                Pieces[1, i] = CreatePiece(PieceType.Pawn, Colour.Black);
+                Pieces[Pieces.GetLength(0) - 2, i] = CreatePiece(PieceType.Pawn, Colour.White);
             }
         }
 
