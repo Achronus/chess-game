@@ -2,16 +2,20 @@ using Chess.Core;
 
 namespace Chess.Pieces
 {
-  public class Rook(Colour colour) : Piece(colour, type: PieceType.Rook, scoreValue: 5)
-  {
-    public override void Move()
+    public class Rook(Colour colour) : Piece
     {
-      throw new NotImplementedException();
-    }
+        public override Colour Colour => colour;
+        public override PieceType Type => PieceType.Rook;
+        public override int ScoreValue => 5;
 
-    public override void Take()
-    {
-      throw new NotImplementedException();
+        public override void Move()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Take()
+        {
+            throw new NotImplementedException();
+        }
     }
-  }
 }

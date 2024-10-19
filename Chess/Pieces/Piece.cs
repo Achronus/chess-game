@@ -2,11 +2,11 @@ using Chess.Core;
 
 namespace Chess.Pieces
 {
-  public abstract class Piece(Colour colour, PieceType type, int scoreValue)
+  public abstract class Piece
   {
-    public Colour Colour { get; } = colour;
-    public PieceType Type { get; } = type;
-    public int ScoreValue { get; } = scoreValue;
+    public abstract Colour Colour { get; }
+    public abstract PieceType Type { get; }
+    public abstract int ScoreValue { get; }
     public bool HasMoved { get; set; } = false;
 
     public abstract void Move();

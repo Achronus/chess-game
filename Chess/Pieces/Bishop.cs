@@ -2,16 +2,20 @@ using Chess.Core;
 
 namespace Chess.Pieces
 {
-  public class Bishop(Colour colour) : Piece(colour, type: PieceType.Bishop, scoreValue: 3)
-  {
-    public override void Move()
+    public class Bishop(Colour colour) : Piece
     {
-      throw new NotImplementedException();
-    }
+        public override Colour Colour => colour;
+        public override PieceType Type => PieceType.Bishop;
+        public override int ScoreValue => 3;
 
-    public override void Take()
-    {
-      throw new NotImplementedException();
+        public override void Move()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Take()
+        {
+            throw new NotImplementedException();
+        }
     }
-  }
 }
