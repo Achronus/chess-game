@@ -20,11 +20,27 @@ namespace Chess.Core
             set => this[pos.X, pos.Y] = value;
         }
 
+        public Board()
+        {
+            InitializeEmptyBoard();
+        }
+
         public static Board Setup()
         {
             Board board = new Board();
             board.AddStartingPieces();
             return board;
+        }
+
+        private void InitializeEmptyBoard()
+        {
+            for (int row = 0; row < RowSize; row++)
+            {
+                for (int col = 0; col < ColSize; col++)
+                {
+                    Pieces[row, col] = NoPiece.Instance;
+                }
+            }
         }
 
         private void AddStartingPieces()
@@ -69,7 +85,7 @@ namespace Chess.Core
 
         public bool IsEmpty(Vector2D pos)
         {
-            return this[pos] == new NoPiece();
+            return this[pos] == NoPiece.Instance;
         }
 
         public static bool InBounds(Vector2D pos)

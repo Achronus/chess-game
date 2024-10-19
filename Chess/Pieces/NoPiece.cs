@@ -5,6 +5,7 @@ namespace Chess.Pieces
 {
     public class NoPiece : Piece
     {
+        public static readonly NoPiece Instance = new NoPiece();
         public override Colour Colour => Colour.None;
 
         public override PieceType Type => PieceType.Empty;
@@ -19,6 +20,5 @@ namespace Chess.Pieces
         public override void Move() { }
 
         public override void Take() { }
-        }
     }
 }
