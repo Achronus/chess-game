@@ -71,5 +71,10 @@ namespace Chess.Core
         {
             return this[pos] == null;
         }
+
+        public static bool InBounds(Vector2D pos)
+        {
+            return pos.X >= 0 && pos.X < RowSize && pos.Y >= 0 && pos.Y < ColSize;
+        }
     }
 }
