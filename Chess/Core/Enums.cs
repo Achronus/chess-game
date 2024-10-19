@@ -3,7 +3,8 @@
     public enum Colour
     {
         White,
-        Black
+        Black,
+        None
     }
 
     public enum PieceType
@@ -13,7 +14,8 @@
         Knight,
         Bishop,
         King,
-        Queen
+        Queen,
+        Empty
     }
 
     public enum DirectionType

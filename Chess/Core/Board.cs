@@ -1,4 +1,4 @@
-using Chess.Pieces;
+﻿using Chess.Pieces;
 
 namespace Chess.Core
 {
@@ -69,7 +69,7 @@ namespace Chess.Core
 
         public bool IsEmpty(Vector2D pos)
         {
-            return this[pos] == null;
+            return this[pos] == new NoPiece();
         }
 
         public static bool InBounds(Vector2D pos)
