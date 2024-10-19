@@ -8,6 +8,6 @@ namespace Chess.Moves
         public abstract Vector2D FromPosition { get; }
         public abstract Vector2D ToPosition { get; }
 
-        public abstract void Step(Board board);
+        public abstract void Perform(Board board);
     }
 }
