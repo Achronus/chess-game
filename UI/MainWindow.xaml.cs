@@ -1,24 +1,62 @@
-﻿using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
+using Chess.Core;
+using Chess.Pieces;
 
 namespace UI
 {
-  /// <summary>
-  /// Interaction logic for MainWindow.xaml
-  /// </summary>
-  public partial class MainWindow : Window
-  {
-    public MainWindow()
+    /// <summary>
+    /// Interaction logic for MainWindow.xaml
+    /// </summary>
+    public partial class MainWindow : Window
     {
-      InitializeComponent();
+        private Image[,] Pieces { get; } = new Image[8, 8];
+        private GameState Match { get; set; }
+
+        public MainWindow()
+        {
+            InitializeComponent();
+            SetupBoard();
+
+            Player white = new Player(Colour.White);
+            Player black = new Player(Colour.Black);
+
+            Match = new GameState(white, Board.Setup());
+            DrawBoard(Match.Board);
+
+            while (true)
+            {
+                if (Match.IsGameOver())
+                {
+                    break;
+                }
+            }
+        }
+
+        private void SetupBoard()
+        {
+            for (int r = 0; r < Pieces.GetLength(0); r++)
+            {
+                for (int c = 0; c < Pieces.GetLength(1); c++)
+                {
+                    Image image = new Image();
+                    Pieces[r, c] = image;
+                    PieceGrid.Children.Add(image);
+                }
+            }
+        }
+
+        private void DrawBoard(Board board)
+        {
+            for (int r = 0; r < Pieces.GetLength(0); r++)
+            {
+                for (int c = 0; c < Pieces.GetLength(1); c++)
+                {
+                    Piece piece = board[r, c];
+                    Pieces[r, c].Source = Images.GetImage(piece);
+                }
+            }
+        }
     }
-  }
 }
