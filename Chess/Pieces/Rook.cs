@@ -8,12 +8,7 @@ namespace Chess.Pieces
         public override Colour Colour => colour;
         public override PieceType Type => PieceType.Rook;
         public override int ScoreValue => 5;
-        public override Vector2D[] Directions => [
-            Direction.North,
-            Direction.South,
-            Direction.East,
-            Direction.West
-        ];
+        public override Vector2D[] Directions => Direction.Basic();
 
         public override IEnumerable<Move> GetMoves(Vector2D from, Board board)
         {
