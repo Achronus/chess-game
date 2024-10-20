@@ -18,9 +18,9 @@ namespace Chess.Core
 				{
 						return false;
 				}
-        public void MakeMove(Move move, Board board)
+        public void MakeMove(Move move)
         {
-            move.Perform(board);
+            move.Perform(Board);
             CurrentPlayer = Opponent();
         }
     }
