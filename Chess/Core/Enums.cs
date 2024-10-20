@@ -18,18 +18,6 @@
         Empty
     }
 
-    public enum DirectionType
-    {
-        NorthEast,
-        North,
-        NorthWest,
-        East,
-        SouthEast,
-        South,
-        SouthWest,
-        West
-    }
-
     public enum MoveType
     { 
         Normal,
