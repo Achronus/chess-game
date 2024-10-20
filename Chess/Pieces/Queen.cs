@@ -21,7 +21,7 @@ namespace Chess.Pieces
 
         public override IEnumerable<Move> GetMoves(Vector2D from, Board board)
         {
-            return GetPositions(from, board, Directions).Select(to => new NormalMove(from, to));
+            return MoveLogic.GetLinePositions(from, board, Directions).Select(to => new NormalMove(from, to));
         }
 
         public override void Move()
