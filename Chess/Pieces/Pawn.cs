@@ -13,12 +13,13 @@ namespace Chess.Pieces
 
         public override IEnumerable<Move> GetMoves(Vector2D from, Board board)
         {
+            return ForwardMoves(from, board).Concat(CaptureMoves(from, board));
+        }
+
+        private IEnumerable<Move> ForwardMoves(Vector2D from, Board board)
+        {
             List<Vector2D> moves = [
                 from + Directions[0]
-            ];
-            List<Vector2D> captures = [
-                from + Directions[1],
-                from + Directions[2]
             ];
 
             if (from == StartPosition)
@@ -34,10 +35,18 @@ namespace Chess.Pieces
                     yield return new NormalMove(from, newPos);
                 }
             }
+        }
+
+        private IEnumerable<Move> CaptureMoves(Vector2D from, Board board)
+        {
+            List<Vector2D> captures = [
+                from + Directions[1],
+                from + Directions[2]
+            ];
 
             foreach (Vector2D capPos in captures)
             {
-                if (MoveLogic.Check.IsOpponent(board[capPos]))
+                if (MoveLogic.Check.CanCaptureAt(capPos, board))
                 {
                     yield return new NormalMove(from, capPos);
                 }
