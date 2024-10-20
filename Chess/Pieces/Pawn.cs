@@ -3,35 +3,13 @@ using Chess.Moves;
 
 namespace Chess.Pieces
 {
-    public class Pawn : Piece
+    public class Pawn(Colour colour, Vector2D startPos) : Piece
     {
-        public override Colour Colour { get; }
-        public override PieceType Type { get; }
-        public override int ScoreValue { get; }
-        public override Vector2D[] Directions { get; }
-
-        public Vector2D StartPosition { get; }
-
-        public Pawn(Colour colour, Vector2D startPos)
-        {
-            Colour = colour;
-            Type = PieceType.Pawn;
-            ScoreValue = 1;
-            StartPosition = startPos;
-
-            Directions = Colour == Colour.White ?
-                [
-                    Direction.North,
-                    Direction.NorthEast,
-                    Direction.NorthWest,
-                ]
-            :
-                [
-                    Direction.South,
-                    Direction.SouthEast,
-                    Direction.SouthWest,
-                ];
-        }
+        public override Colour Colour { get; } = colour;
+        public override PieceType Type { get; } = PieceType.Pawn;
+        public override int ScoreValue { get; } = 1;
+        public override Vector2D[] Directions { get; } = Direction.Pawn(colour);
+        public Vector2D StartPosition { get; } = startPos;
 
         public override IEnumerable<Move> GetMoves(Vector2D from, Board board)
         {
