@@ -12,7 +12,14 @@ namespace Chess.Pieces
 
         public override IEnumerable<Move> GetMoves(Vector2D from, Board board)
         {
-            throw new NotImplementedException();
+            foreach (Vector2D dir in Directions)
+            {
+                Vector2D? newPos = MoveLogic.GetSinglePosition(from + dir, board);
+                if (newPos != null)
+                {
+                    yield return new NormalMove(from, newPos);
+                }
+            }
         }
 
         public override void Move()

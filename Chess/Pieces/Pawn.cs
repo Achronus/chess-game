@@ -13,7 +13,35 @@ namespace Chess.Pieces
 
         public override IEnumerable<Move> GetMoves(Vector2D from, Board board)
         {
-            throw new NotImplementedException();
+            List<Vector2D> moves = [
+                from + Directions[0]
+            ];
+            List<Vector2D> captures = [
+                from + Directions[1],
+                from + Directions[2]
+            ];
+
+            if (from == StartPosition)
+            {
+                moves.Add(from + Directions[3]);
+            }
+
+            foreach (Vector2D move in moves)
+            {
+                Vector2D? newPos = MoveLogic.GetSinglePosition(move, board);
+                if (newPos != null)
+                {
+                    yield return new NormalMove(from, newPos);
+                }
+            }
+
+            foreach (Vector2D capPos in captures)
+            {
+                if (MoveLogic.Check.IsOpponent(board[capPos]))
+                {
+                    yield return new NormalMove(from, capPos);
+                }
+            }
         }
 
         public override void Move()
