@@ -1,13 +1,27 @@
+using Chess.Moves;
+
 namespace Chess.Core
 {
-		public class GameState(Player player, Board board)
+		public class GameState(Player white, Player black, Board board)
 		{
-				public Player CurrentPlayer { get; private set; } = player;
+        public Player White { get; } = white;
+        public Player Black { get; } = black;
 				public Board Board { get; } = board;
+        public Player CurrentPlayer { get; private set; } = white;
 
-				public bool IsGameOver()
+        public Player Opponent()
+        {
+            return CurrentPlayer == White ? Black : White;
+        }
+
+        public bool IsGameOver()
 				{
-						return true;
+						return false;
 				}
-		}
+        public void MakeMove(Move move, Board board)
+        {
+            move.Perform(board);
+            CurrentPlayer = Opponent();
+        }
+    }
 }

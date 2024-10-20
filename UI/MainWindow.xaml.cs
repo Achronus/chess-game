@@ -24,7 +24,7 @@ namespace UI
             Player white = new Player(Colour.White);
             Player black = new Player(Colour.Black);
 
-            Match = new GameState(white, Board.Setup());
+            Match = new GameState(white, black, Board.Setup());
             DrawBoard(Match.Board);
 
             while (true)
