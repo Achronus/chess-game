@@ -4,7 +4,7 @@ Chess is an incredible board game that offers some unique challenges when progra
 
 It includes:
 
-- [ ] Basic piece movements
+- [X] Basic piece movements
 - [ ] Enpassant
 - [ ] Pawn promotion
 - [ ] Castling short and long
