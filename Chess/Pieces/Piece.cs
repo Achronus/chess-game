@@ -18,10 +18,6 @@ namespace Chess.Pieces
             MoveLogic = new GetMoves(this);
         }
 
-        public abstract void Move();
-
         public abstract IEnumerable<Move> GetMoves(Vector2D from, Board board);
-
-        public abstract void Take();
     }
 }

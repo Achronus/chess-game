@@ -14,15 +14,5 @@ namespace Chess.Pieces
         {
             return MoveLogic.GetLinePositions(from, board, Directions).Select(to => new NormalMove(from, to));
         }
-
-        public override void Move()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void Take()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

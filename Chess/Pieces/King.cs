@@ -21,15 +21,5 @@ namespace Chess.Pieces
                 }
             }
         }
-
-        public override void Move()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void Take()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
