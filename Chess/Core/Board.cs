@@ -64,8 +64,9 @@ namespace Chess.Core
 
             for (int i = 0; i < RowSize; i++)
             {
-                Pieces[1, i] = CreatePiece(PieceType.Pawn, Colour.Black);
-                Pieces[Pieces.GetLength(0) - 2, i] = CreatePiece(PieceType.Pawn, Colour.White);
+                int whiteRowIdx = Pieces.GetLength(0) - 2;
+                Pieces[1, i] = new Pawn(Colour.Black, new Vector2D(1, i));
+                Pieces[whiteRowIdx, i] = new Pawn(Colour.White, new Vector2D(whiteRowIdx, i));
             }
         }
 
@@ -73,7 +74,6 @@ namespace Chess.Core
         {
             return type switch
             {
-                PieceType.Pawn => new Pawn(colour),
                 PieceType.Rook => new Rook(colour),
                 PieceType.Knight => new Knight(colour),
                 PieceType.Bishop => new Bishop(colour),

@@ -35,7 +35,6 @@
         Normal,
         CastleShort,
         CastleLong,
-        PawnDoubleMove,
         EnPassant,
         PawnPromotion
     }
