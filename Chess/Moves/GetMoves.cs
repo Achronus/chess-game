@@ -26,10 +26,21 @@ namespace Chess.Moves
 
         public IEnumerable<Vector2D> GetLinePositions(Vector2D from, Board board, Vector2D dir)
         {
-            Vector2D pos = from + dir;
-            while (!Check.ValidPosition(pos, board))
+            for (Vector2D pos = from + dir; Board.InBounds(pos); pos += dir)
             {
-                yield return pos;
+                if (Check.CanMoveTo(pos, board))
+                {
+                    yield return pos;
+                }
+                else if (Check.CanCaptureAt(pos, board))
+                {
+                    yield return pos;  // Only first opponent piece
+                    yield break;
+                }
+                else
+                {
+                    yield break;
+                }
             }
         }
 
