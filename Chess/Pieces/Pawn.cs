@@ -30,7 +30,7 @@ namespace Chess.Pieces
             foreach (Vector2D move in moves)
             {
                 Vector2D? newPos = MoveLogic.GetSinglePosition(move, board);
-                if (newPos != null)
+                if (newPos != null && board.IsEmpty(newPos))
                 {
                     yield return new NormalMove(from, newPos);
                 }
