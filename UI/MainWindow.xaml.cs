@@ -2,11 +2,11 @@
 using System.Windows.Controls;
 using System.Windows.Shapes;
 using System.Windows.Input;
+using System.Windows.Media;
 
 using Chess.Core;
 using Chess.Pieces;
 using Chess.Moves;
-using System.Windows.Media;
 
 namespace UI
 {
@@ -34,6 +34,7 @@ namespace UI
 
             Match = new GameState(white, black, Board.Setup());
             DrawBoard(Match.Board);
+            SetCursor(Match.CurrentPlayer);
         }
 
         private void SetupBoard()
@@ -107,6 +108,7 @@ namespace UI
         {
             Match.MakeMove(move);
             DrawBoard(Match.Board);
+            SetCursor(Match.CurrentPlayer);
         }
 
         private Vector2D PointToBoardVector2D(Point point)
@@ -143,6 +145,11 @@ namespace UI
             {
                 HighlightedMoves[to.X, to.Y].Fill = Brushes.Transparent;
             }
+        }
+
+        private void SetCursor(Player player)
+        {
+            Cursor = player.Colour == Colour.White ? Cursors.WhiteCursor : Cursors.BlackCursor;
         }
     }
 }
