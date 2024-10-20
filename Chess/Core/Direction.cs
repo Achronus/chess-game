@@ -12,20 +12,69 @@
         public static Vector2D SouthWest { get; } = South + West;
         public static Vector2D SouthEast { get; } = South + East;
 
-        public static Vector2D GetDirection(DirectionType direction)
+        public static Vector2D DoubleNorth { get; } = 2 * North;
+        public static Vector2D DoubleSouth { get; } = 2 * South;
+        public static Vector2D DoubleEast { get; } = 2 * East;
+        public static Vector2D DoubleWest { get; } = 2 * West;
+
+        public static Vector2D[] Pawn(Colour colour)
         {
-            return direction switch
+            return colour switch
             {
-            DirectionType.North => North,
-            DirectionType.East => East,
-            DirectionType.South => South,
-            DirectionType.West => West,
-            DirectionType.NorthEast => NorthEast,
-            DirectionType.NorthWest => NorthWest,
-            DirectionType.SouthWest => SouthWest,
-            DirectionType.SouthEast => SouthEast,
-            _ => throw new ArgumentException("Invalid direction type")
+                Colour.White => [
+                    North,
+                    NorthEast,
+                    NorthWest,
+                    DoubleNorth
+                ],
+                Colour.Black => [
+                    South,
+                    SouthEast,
+                    SouthWest,
+                    DoubleSouth
+                ],
+                Colour.None => [],
+                _ => throw new ArgumentException("Invalid colour")
             };
+        }
+
+        public static Vector2D[] Knight()
+        {
+            return [
+                DoubleNorth + East,
+                DoubleNorth + West,
+                DoubleSouth + East,
+                DoubleSouth + West,
+                DoubleEast + North,
+                DoubleEast + South,
+                DoubleWest + North,
+                DoubleWest + South
+            ];
+        }
+
+        public static Vector2D[] Basic()
+        {
+            return [
+                North,
+                East,
+                South,
+                West
+            ];
+        }
+
+        public static Vector2D[] Diagonal()
+        {
+            return [
+                NorthWest,
+                NorthEast,
+                SouthWest,
+                SouthEast
+            ];
+        }
+
+        public static Vector2D[] AllDirections()
+        {
+            return Basic().Concat(Diagonal()).ToArray();
         }
     }
 }
