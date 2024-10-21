@@ -10,13 +10,18 @@ namespace Chess.Core
 
         public IEnumerable<Move> LegalMoves(Vector2D pos, Board board)
         {
-            if (board.IsEmpty(pos) || board[pos].Colour != Colour)
+            if (IsNotEmptyOrOpponentPiece(pos, board))
             {
                 return [];
             }
 
             Piece piece = board[pos];
             return piece.GetMoves(pos, board);
+        }
+
+        private bool IsNotEmptyOrOpponentPiece(Vector2D pos, Board board)
+        {
+            return board.IsEmpty(pos) || board[pos].Colour != Colour;
         }
     }
 }

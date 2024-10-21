@@ -3,17 +3,11 @@ using Chess.Pieces;
 
 namespace Chess.Moves
 {
-    public class NormalMove : Move
+    public class NormalMove(Vector2D fromPosition, Vector2D toPosition) : Move
     {
         public override MoveType Type => MoveType.Normal;
-        public override Vector2D FromPosition { get; }
-        public override Vector2D ToPosition { get; }
-
-        public NormalMove(Vector2D fromPosition, Vector2D toPosition)
-        {
-            FromPosition = fromPosition;
-            ToPosition = toPosition;
-        }
+        public override Vector2D FromPosition { get; } = fromPosition;
+        public override Vector2D ToPosition { get; } = toPosition;
 
         public override void Perform(Board board)
         {
