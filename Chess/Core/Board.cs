@@ -92,5 +92,30 @@ namespace Chess.Core
         {
             return pos.X >= 0 && pos.X < RowSize && pos.Y >= 0 && pos.Y < ColSize;
         }
+
+        public IEnumerable<Vector2D> PiecePositions()
+        {
+            for (int r = 0; r < RowSize; r++)
+            {
+                for (int c = 0; c < ColSize; c++)
+                {
+                    Vector2D piecePos = new Vector2D(r, c);
+                    
+                    if (!IsEmpty(piecePos))
+                    { 
+                        yield return piecePos;
+                    }
+                }
+            }
+        }
+
+        public bool IsInCheck(Player player)
+        {
+            return player.MyPiecePositions(this).Any(pos =>
+            {
+                Piece piece = this[pos];
+                return piece.IsKingInCheck(pos, this);
+            });
+        }
     }
 }

@@ -19,5 +19,17 @@ namespace Chess.Pieces
         }
 
         public abstract IEnumerable<Move> GetMoves(Vector2D from, Board board);
+
+        public virtual bool IsKingInCheck(Vector2D from, Board board)
+        {
+            return GetMoves(from, board).Any(move => AttackingKing(move, board));
+        }
+
+        public static bool AttackingKing(Move move, Board board)
+        {
+            // NoPiece check needed for invalid moves during check
+            Piece piece = board[move.ToPosition];
+            return piece != NoPiece.Instance && piece.Type == PieceType.King;
+        }
     }
 }

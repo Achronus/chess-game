@@ -24,5 +24,10 @@ namespace Chess.Core
         {
             return board[pos].Colour != Colour;
         }
+
+        public IEnumerable<Vector2D> MyPiecePositions(Board board)
+        {
+            return board.PiecePositions().Where(pos => board[pos].Colour == Colour);
+        }
     }
 }

@@ -16,6 +16,11 @@ namespace Chess.Pieces
             return ForwardMoves(from, board).Concat(CaptureMoves(from, board));
         }
 
+        public override bool IsKingInCheck(Vector2D from, Board board)
+        {
+            return CaptureMoves(from, board).Any(move => AttackingKing(move, board));
+        }
+
         private IEnumerable<Move> ForwardMoves(Vector2D from, Board board)
         {
             List<Vector2D> moves = [
