@@ -1,4 +1,5 @@
 using Chess.Moves;
+using Chess.Pieces;
 
 namespace Chess.Core
 {
@@ -22,6 +23,24 @@ namespace Chess.Core
         {
             move.Perform(Board);
             CurrentPlayer = Opponent();
+        }
+
+        public bool IsMoveSafeForKing(Move move)
+        {
+            Piece currentPosition = Board[move.FromPosition];
+            Piece targetPosition = Board[move.ToPosition];
+
+            // Move the piece
+            Board[move.ToPosition] = currentPosition;
+            Board[move.FromPosition] = NoPiece.Instance;
+
+            bool isInCheck = Board.IsInCheck(Opponent());
+
+            // Revert piece
+            Board[move.FromPosition] = currentPosition;
+            Board[move.ToPosition] = targetPosition;
+
+            return !isInCheck;
         }
     }
 }

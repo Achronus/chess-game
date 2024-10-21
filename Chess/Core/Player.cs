@@ -8,7 +8,7 @@ namespace Chess.Core
         public Colour Colour { get; } = colour;
         public int Score { get; private set; } = 0;
 
-        public IEnumerable<Move> LegalMoves(Vector2D pos, Board board)
+        public IEnumerable<Move> PossibleMoves(Vector2D pos, Board board)
         {
             // Prevent opponent piece selection
             if (IsOpponentPiece(pos, board))

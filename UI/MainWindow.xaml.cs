@@ -83,10 +83,11 @@ namespace UI
 
         private void ShowPossibleMoves(Vector2D pos)
         {
-            IEnumerable<Move> pieceMoves = Match.CurrentPlayer.LegalMoves(pos, Match.Board);
+            IEnumerable<Move> pieceMoves = Match.CurrentPlayer.PossibleMoves(pos, Match.Board);
 
             if (pieceMoves.Any())
             {
+                pieceMoves = pieceMoves.Where(move => Match.IsMoveSafeForKing(move));
                 SelectedPosition = pos;
                 StoreMoves(pieceMoves);
                 ShowHighlights();
