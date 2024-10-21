@@ -9,6 +9,7 @@ namespace Chess.Core
         public Player Black { get; } = black;
 				public Board Board { get; } = board;
         public Player CurrentPlayer { get; private set; } = white;
+        public Result? Result { get; private set; } = null;
 
         public Player Opponent()
         {
@@ -17,8 +18,14 @@ namespace Chess.Core
 
         public bool IsGameOver()
 				{
-						return false;
+						if (!AllLegalMovesFor(CurrentPlayer).Any())
+            {
+                Result = Board.IsInCheck(CurrentPlayer) ? Result.Win(Opponent()) : Result.Draw(GameOverStatus.Stalemate);
+            }
+
+            return Result != null;
 				}
+
         public void MakeMove(Move move)
         {
             move.Perform(Board);
@@ -41,6 +48,17 @@ namespace Chess.Core
             Board[move.ToPosition] = targetPosition;
 
             return !isInCheck;
+        }
+
+        public IEnumerable<Move> AllLegalMovesFor(Player player)
+        {
+            IEnumerable<Move> possibleMoves = player.MyPiecePositions(Board).SelectMany(pos =>
+            {
+                Piece piece = Board[pos];
+                return piece.GetMoves(pos, Board);
+            });
+
+            return possibleMoves.Where(move => IsMoveSafeForKing(move));
         }
     }
 }

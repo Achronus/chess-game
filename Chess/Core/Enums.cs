@@ -26,4 +26,11 @@
         EnPassant,
         PawnPromotion
     }
+
+    public enum GameOverStatus
+    {
+        Checkmate,
+        Stalemate,
+        InsufficientMaterial
+    }
 }
