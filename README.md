@@ -10,14 +10,14 @@ It includes:
 - [ ] Castling short and long
 - [ ] Checkmate
 - [ ] Draw conditions
-  - [ ] Zero pieces remaining (King's only on the board)
   - [ ] Insufficient material
   - [ ] Stalemate
-  - [ ] Threefold repetition (same move 3 times)
-  - [ ] Fifty-move limit
 
 Extensions could include:
 
+- Draw Conditions
+  - [ ] Threefold repetition (same move 3 times)
+  - [ ] Move limit (e.g., 50 max)
 - [ ] Web App with API integration
 - [ ] Move tracker
 - [ ] AI players
