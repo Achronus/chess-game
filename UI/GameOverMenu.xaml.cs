@@ -16,6 +16,11 @@ namespace UI
         {
             InitializeComponent();
 
+            if (match.Result == null)
+            {
+                throw new ArgumentNullException(nameof(match.Result), "Match.Result cannot be null");
+            }
+
             Result result = match.Result;
             WinnerText.Text = GetWinnerText(result.Winner);
             ReasonText.Text = GetReasonText(result.Reason, match.CurrentPlayer);
@@ -45,12 +50,12 @@ namespace UI
 
         private void Restart_Click(object sender, RoutedEventArgs e)
         {
-            OptionSelected.Invoke(Option.Restart);
+            OptionSelected?.Invoke(Option.Restart);
         }
 
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
-            OptionSelected.Invoke(Option.Exit);
+            OptionSelected?.Invoke(Option.Exit);
         }
     }
 }
