@@ -8,7 +8,7 @@ namespace Chess.Pieces
         public override Colour Colour { get; } = colour;
         public override PieceType Type { get; } = PieceType.Pawn;
         public override int ScoreValue { get; } = 1;
-        public override Vector2D[] Directions { get; } = Direction.Pawn(colour);
+        public override DirectionMap Directions { get; } = new DirectionMap(Direction.Pawn(colour));
         public Vector2D StartPosition { get; } = startPos;
 
         public override IEnumerable<Move> GetMoves(Vector2D from, Board board)
@@ -23,13 +23,15 @@ namespace Chess.Pieces
 
         private IEnumerable<Move> ForwardMoves(Vector2D from, Board board)
         {
+            Dictionary<string, Vector2D> dirs = Directions.GetDict();
+
             List<Vector2D> moves = [
-                from + Directions[0]
+                from + dirs[PawnMoves.Forward.ToString()]
             ];
 
             if (from == StartPosition)
             {
-                moves.Add(from + Directions[3]);
+                moves.Add(from + dirs[PawnMoves.ForwardDouble.ToString()]);
             }
 
             foreach (Vector2D move in moves)
@@ -44,9 +46,11 @@ namespace Chess.Pieces
 
         private IEnumerable<Move> CaptureMoves(Vector2D from, Board board)
         {
+            Dictionary<string, Vector2D> dirs = Directions.GetDict();
+
             List<Vector2D> captures = [
-                from + Directions[1],
-                from + Directions[2]
+                from + dirs[PawnMoves.ForwardLeft.ToString()],
+                from + dirs[PawnMoves.ForwardRight.ToString()]
             ];
 
             foreach (Vector2D capPos in captures)

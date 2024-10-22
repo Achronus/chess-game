@@ -17,22 +17,23 @@
         public static Vector2D DoubleEast { get; } = 2 * East;
         public static Vector2D DoubleWest { get; } = 2 * West;
 
-        public static Vector2D[] Pawn(Colour colour)
+        public static Dictionary<string, Vector2D> Pawn(Colour colour)
         {
             return colour switch
             {
-                Colour.White => [
-                    North,
-                    NorthEast,
-                    NorthWest,
-                    DoubleNorth
-                ],
-                Colour.Black => [
-                    South,
-                    SouthEast,
-                    SouthWest,
-                    DoubleSouth
-                ],
+                Colour.White => new Dictionary<string, Vector2D> {
+                    ["Forward"] = North,
+                    ["ForwardLeft"] = NorthEast,
+                    ["ForwardRight"] = NorthWest,
+                    ["ForwardDouble"] = DoubleNorth
+                },
+                Colour.Black => new Dictionary<string, Vector2D>
+                {
+                    ["Forward"] = South,
+                    ["ForwardLeft"] = SouthEast,
+                    ["ForwardRight"] = SouthWest,
+                    ["ForwardDouble"] = DoubleSouth
+                },
                 Colour.None => [],
                 _ => throw new ArgumentException("Invalid colour")
             };
@@ -75,6 +76,32 @@
         public static Vector2D[] AllDirections()
         {
             return Basic().Concat(Diagonal()).ToArray();
+        }
+    }
+
+    public readonly struct DirectionMap
+    {
+        public Vector2D[] Array { get; } = [];
+        public Dictionary<string, Vector2D> Dict { get; } = [];
+
+        public DirectionMap(Vector2D[] array)
+        {
+            Array = array;
+        }
+
+        public DirectionMap(Dictionary<string, Vector2D> dict)
+        {
+            Dict = dict;
+        }
+
+        public Vector2D[] GetArray()
+        {
+            return Array;
+        }
+
+        public Dictionary<string, Vector2D> GetDict()
+        {
+            return Dict;
         }
     }
 }

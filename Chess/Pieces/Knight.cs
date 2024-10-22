@@ -8,11 +8,11 @@ namespace Chess.Pieces
         public override Colour Colour => colour;
         public override PieceType Type => PieceType.Knight;
         public override int ScoreValue => 3;
-        public override Vector2D[] Directions => Direction.Knight();
+        public override DirectionMap Directions => new DirectionMap(Direction.Knight());
 
         public override IEnumerable<Move> GetMoves(Vector2D from, Board board)
         {
-            foreach (Vector2D dir in Directions)
+            foreach (Vector2D dir in Directions.GetArray())
             {
                 Vector2D? newPos = MoveLogic.GetSinglePosition(from + dir, board);
                 if (newPos != null)

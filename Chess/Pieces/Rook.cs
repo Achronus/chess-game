@@ -8,11 +8,11 @@ namespace Chess.Pieces
         public override Colour Colour => colour;
         public override PieceType Type => PieceType.Rook;
         public override int ScoreValue => 5;
-        public override Vector2D[] Directions => Direction.Basic();
+        public override DirectionMap Directions => new DirectionMap(Direction.Basic());
 
         public override IEnumerable<Move> GetMoves(Vector2D from, Board board)
         {
-            return MoveLogic.GetLinePositions(from, board, Directions).Select(to => new NormalMove(from, to));
+            return MoveLogic.GetLinePositions(from, board, Directions.GetArray()).Select(to => new NormalMove(from, to));
         }
     }
 }

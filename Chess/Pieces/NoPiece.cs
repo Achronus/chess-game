@@ -9,7 +9,7 @@ namespace Chess.Pieces
         public override Colour Colour => Colour.None;
         public override PieceType Type => PieceType.Empty;
         public override int ScoreValue => 0;
-        public override Vector2D[] Directions => [];
+        public override DirectionMap Directions => new DirectionMap();
 
         public override IEnumerable<Move> GetMoves(Vector2D from, Board board)
         {

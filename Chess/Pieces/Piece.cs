@@ -8,7 +8,7 @@ namespace Chess.Pieces
         public abstract Colour Colour { get; }
         public abstract PieceType Type { get; }
         public abstract int ScoreValue { get; }
-        public abstract Vector2D[] Directions { get; }
+        public abstract DirectionMap Directions { get; }
 
         public bool HasMoved { get; set; } = false;
         public GetMoves MoveLogic { get; }

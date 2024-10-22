@@ -18,6 +18,14 @@
         Empty
     }
 
+    public enum PawnMoves
+    { 
+        Forward,
+        ForwardLeft,
+        ForwardRight,
+        ForwardDouble
+    }
+
     public enum MoveType
     { 
         Normal,
