@@ -15,22 +15,21 @@ namespace Chess.Moves
 
         public IEnumerable<Vector2D> GetLinePositions(Vector2D from, Board board, Vector2D dir)
         {
-            // TODO: refactor
             for (Vector2D pos = from + dir; Board.InBounds(pos); pos += dir)
             {
                 if (CheckMoves.CanMoveTo(pos, board))
                 {
                     yield return pos;
+                    continue;
                 }
-                else if (Check.CanCaptureAt(pos, board))
+
+                // Only first opponent piece
+                if (Check.CanCaptureAt(pos, board))
                 {
-                    yield return pos;  // Only first opponent piece
-                    yield break;
+                    yield return pos;
                 }
-                else
-                {
-                    yield break;
-                }
+                
+                yield break;
             }
         }
 
