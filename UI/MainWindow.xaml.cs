@@ -1,4 +1,4 @@
-﻿using System.Windows;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Shapes;
 using System.Windows.Input;
@@ -17,7 +17,7 @@ namespace UI
     {
         private Image[,] PieceImages { get; }
         private Rectangle[,] HighlightedMoves { get; }
-        private Dictionary<Vector2D, Move> PossibleMoves { get; } = [];
+        private Dictionary<Vector2D, IMove> PossibleMoves { get; } = [];
         private GameState Match { get; set; }
         private Vector2D? SelectedPosition { get; set; } = null;
 
@@ -83,7 +83,7 @@ namespace UI
 
         private void ShowPossibleMoves(Vector2D pos)
         {
-            IEnumerable<Move> pieceMoves = Match.CurrentPlayer.PossibleMoves(pos, Match.Board);
+            IEnumerable<IMove> pieceMoves = Match.CurrentPlayer.PossibleMoves(pos, Match.Board);
 
             if (pieceMoves.Any())
             {
@@ -99,13 +99,13 @@ namespace UI
             SelectedPosition = null;
             HideHighlights();
 
-            if (PossibleMoves.TryGetValue(pos, out Move move))
+            if (PossibleMoves.TryGetValue(pos, out IMove move))
             {
                 HandleMove(move);
             }
         }
 
-        private void HandleMove(Move move)
+        private void HandleMove(IMove move)
         {
             Match.MakeMove(move);
             DrawBoard(Match.Board);
@@ -120,11 +120,11 @@ namespace UI
             return new Vector2D(row, col);
         }
 
-        private void StoreMoves(IEnumerable<Move> moves)
+        private void StoreMoves(IEnumerable<IMove> moves)
         {
             PossibleMoves.Clear();
 
-            foreach (Move move in moves)
+            foreach (IMove move in moves)
             {
                 PossibleMoves[move.ToPosition] = move;
             }
