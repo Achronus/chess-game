@@ -20,7 +20,8 @@ namespace Chess.Core
 				{
 						if (!AllLegalMovesFor(CurrentPlayer).Any())
             {
-                Result = Board.IsInCheck(CurrentPlayer) ? Result.Win(Opponent()) : Result.Draw(GameOverStatus.Stalemate);
+                // Not in check -> in checkmate = win
+                Result = !Board.IsInCheck(CurrentPlayer) ? Result.Win(Opponent()) : Result.Draw(GameOverStatus.Stalemate);
             }
 
             return Result != null;

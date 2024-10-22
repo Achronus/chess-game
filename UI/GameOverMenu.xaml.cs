@@ -1,17 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
+using Chess.Core;
 
 namespace UI
 {
@@ -20,19 +10,47 @@ namespace UI
     /// </summary>
     public partial class GameOverMenu : UserControl
     {
-        public GameOverMenu()
+        public event Action<Option>? OptionSelected = null;
+
+        public GameOverMenu(GameState match)
         {
             InitializeComponent();
+
+            Result result = match.Result;
+            WinnerText.Text = GetWinnerText(result.Winner);
+            ReasonText.Text = GetReasonText(result.Reason, match.CurrentPlayer);
+        }
+
+        private static string GetWinnerText(Player winner)
+        {
+            string winnerName = PlayerString(winner);
+            return winner.Colour == Colour.None ? "IT'S A DRAW" : $"{winnerName} WINS!";
+        }
+
+        private static string PlayerString(Player player)
+        {
+            return player.Colour.ToString().ToUpper();
+        }
+
+        private static string GetReasonText(GameOverStatus reason, Player currentPlayer)
+        {
+            if (reason == GameOverStatus.InsufficientMaterial)
+            {
+                return "INSUFFICIENT MATERIAL";
+            }
+
+            string reasonUpper = reason.ToString().ToUpper();
+            return $"{reasonUpper} - {PlayerString(currentPlayer)} CAN'T MOVE";
         }
 
         private void Restart_Click(object sender, RoutedEventArgs e)
         {
-
+            OptionSelected.Invoke(Option.Restart);
         }
 
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
-
+            OptionSelected.Invoke(Option.Exit);
         }
     }
 }
