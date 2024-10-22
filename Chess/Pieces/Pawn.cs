@@ -11,7 +11,7 @@ namespace Chess.Pieces
         public override DirectionMap Directions { get; } = new DirectionMap(Direction.Pawn(colour));
         public Vector2D StartPosition { get; } = startPos;
 
-        public override IEnumerable<Move> GetMoves(Vector2D from, Board board)
+        public override IEnumerable<IMove> GetMoves(Vector2D from, Board board)
         {
             return ForwardMoves(from, board).Concat(CaptureMoves(from, board));
         }
@@ -21,7 +21,7 @@ namespace Chess.Pieces
             return CaptureMoves(from, board).Any(move => AttackingKing(move, board));
         }
 
-        private IEnumerable<Move> ForwardMoves(Vector2D from, Board board)
+        private IEnumerable<IMove> ForwardMoves(Vector2D from, Board board)
         {
             Dictionary<string, Vector2D> dirs = Directions.GetDict();
 
@@ -44,7 +44,7 @@ namespace Chess.Pieces
             }
         }
 
-        private IEnumerable<Move> CaptureMoves(Vector2D from, Board board)
+        private IEnumerable<IMove> CaptureMoves(Vector2D from, Board board)
         {
             Dictionary<string, Vector2D> dirs = Directions.GetDict();
 

@@ -26,13 +26,13 @@ namespace Chess.Core
             return Result != null;
 				}
 
-        public void MakeMove(Move move)
+        public void MakeMove(IMove move)
         {
             move.Perform(Board);
             CurrentPlayer = Opponent();
         }
 
-        public bool IsMoveSafeForKing(Move move)
+        public bool IsMoveSafeForKing(IMove move)
         {
             Piece currentPosition = Board[move.FromPosition];
             Piece targetPosition = Board[move.ToPosition];
@@ -50,9 +50,9 @@ namespace Chess.Core
             return !isInCheck;
         }
 
-        public IEnumerable<Move> AllLegalMovesFor(Player player)
+        public IEnumerable<IMove> AllLegalMovesFor(Player player)
         {
-            IEnumerable<Move> possibleMoves = player.MyPiecePositions(Board).SelectMany(pos =>
+            IEnumerable<IMove> possibleMoves = player.MyPiecePositions(Board).SelectMany(pos =>
             {
                 Piece piece = Board[pos];
                 return piece.GetMoves(pos, Board);

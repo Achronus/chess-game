@@ -12,6 +12,6 @@ namespace Chess.Pieces
 
         public bool HasMoved { get; set; } = false;
 
-        public abstract IEnumerable<Move> GetMoves(Vector2D from, Board board);
+        public abstract IEnumerable<IMove> GetMoves(Vector2D from, Board board);
     }
 }

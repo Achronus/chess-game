@@ -35,7 +35,7 @@ namespace Chess.Pieces
             return GetMoves(from, board).Any(move => AttackingKing(move, board));
         }
 
-        public static bool AttackingKing(Move move, Board board)
+        public static bool AttackingKing(IMove move, Board board)
         {
             // NoPiece check needed for invalid moves during check
             Piece piece = board[move.ToPosition];

@@ -10,7 +10,7 @@ namespace Chess.Pieces
         public override int ScoreValue => 3;
         public override DirectionMap Directions => new DirectionMap(Direction.Knight());
 
-        public override IEnumerable<Move> GetMoves(Vector2D from, Board board)
+        public override IEnumerable<IMove> GetMoves(Vector2D from, Board board)
         {
             foreach (Vector2D dir in Directions.GetArray())
             {
