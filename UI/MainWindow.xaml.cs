@@ -1,4 +1,4 @@
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Shapes;
 using System.Windows.Input;
@@ -29,12 +29,7 @@ namespace UI
             InitializeComponent();
             SetupBoard();
 
-            Player white = new Player(Colour.White);
-            Player black = new Player(Colour.Black);
-
-            Match = new GameState(white, black, Board.Setup());
-            DrawBoard(Match.Board);
-            SetCursor(Match.CurrentPlayer);
+            Match = RestartGame();
         }
 
         private void SetupBoard()
@@ -68,10 +63,15 @@ namespace UI
 
         private void ChessBoard_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            if (IsMenuOnScreen())
+            {
+                return;
+            }
+
             Point point = e.GetPosition(ChessBoard);
             Vector2D pos = PointToBoardVector2D(point);
 
-            if (SelectedPosition == null)
+            if (!SelectedPosition.HasValue)
             {
                 ShowPossibleMoves(pos);
             }
@@ -110,6 +110,11 @@ namespace UI
             Match.MakeMove(move);
             DrawBoard(Match.Board);
             SetCursor(Match.CurrentPlayer);
+
+            if (Match.IsGameOver())
+            {
+                ShowGameOver();
+            }
         }
 
         private Vector2D PointToBoardVector2D(Point point)
@@ -151,6 +156,43 @@ namespace UI
         private void SetCursor(Player player)
         {
             Cursor = player.Colour == Colour.White ? Cursors.WhiteCursor : Cursors.BlackCursor;
+        }
+
+        private bool IsMenuOnScreen()
+        {
+            return MenuContainer.Content != null;
+        }
+
+        private void ShowGameOver()
+        {
+            GameOverMenu gameOverMenu = new GameOverMenu(Match);
+            MenuContainer.Content = gameOverMenu;
+
+            gameOverMenu.OptionSelected += option =>
+            {
+                if (option == Option.Restart)
+                {
+                    MenuContainer.Content = null;
+                    Match = RestartGame();
+                } else
+                {
+                    Application.Current.Shutdown();
+                }
+            };
+        }
+
+        private GameState RestartGame()
+        {
+            HideHighlights();
+            PossibleMoves.Clear();
+
+            Player white = new Player(Colour.White);
+            Player black = new Player(Colour.Black);
+
+            Match = new GameState(white, black, Board.Setup());
+            DrawBoard(Match.Board);
+            SetCursor(Match.CurrentPlayer);
+            return Match;
         }
     }
 }
