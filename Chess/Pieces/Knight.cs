@@ -14,7 +14,7 @@ namespace Chess.Pieces
         {
             foreach (Vector2D dir in Directions.GetArray())
             {
-                Vector2D? newPos = MoveLogic.GetSinglePosition(from + dir, board);
+                Vector2D? newPos = GetSinglePosition(from + dir, board);
                 if (newPos.HasValue)
                 {
                     yield return new NormalMove(from, newPos.Value);

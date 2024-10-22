@@ -36,7 +36,7 @@ namespace Chess.Pieces
 
             foreach (Vector2D move in moves)
             {
-                Vector2D? newPos = MoveLogic.GetSinglePosition(move, board);
+                Vector2D? newPos = GetSinglePosition(move, board);
                 if (newPos.HasValue && board.IsEmpty(newPos.Value))
                 {
                     yield return new NormalMove(from, newPos.Value);
@@ -55,7 +55,7 @@ namespace Chess.Pieces
 
             foreach (Vector2D capPos in captures)
             {
-                if (MoveLogic.Check.CanCaptureAt(capPos, board))
+                if (CanCaptureAt(capPos, board))
                 {
                     yield return new NormalMove(from, capPos);
                 }

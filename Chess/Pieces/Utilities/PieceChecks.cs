@@ -1,15 +1,13 @@
 ﻿using Chess.Core;
-using Chess.Pieces;
+using Chess.Moves;
 
-namespace Chess.Moves
+namespace Chess.Pieces
 {
-    public class CheckMoves(Piece piece)
+    public partial class Piece
     {
-        private Piece Piece { get; } = piece;
-
         public bool IsOpponent(Piece otherPiece)
         {
-            return Piece.Colour != otherPiece.Colour;
+            return Colour != otherPiece.Colour;
         }
 
         public bool CanCaptureAt(Vector2D pos, Board board)
@@ -30,6 +28,18 @@ namespace Chess.Moves
         public bool ValidPosition(Vector2D pos, Board board)
         {
             return CanMoveTo(pos, board) || CanCaptureAt(pos, board);
+        }
+
+        public virtual bool IsKingInCheck(Vector2D from, Board board)
+        {
+            return GetMoves(from, board).Any(move => AttackingKing(move, board));
+        }
+
+        public static bool AttackingKing(Move move, Board board)
+        {
+            // NoPiece check needed for invalid moves during check
+            Piece piece = board[move.ToPosition];
+            return piece != NoPiece.Instance && piece.Type == PieceType.King;
         }
     }
 }
