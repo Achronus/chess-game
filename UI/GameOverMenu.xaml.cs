@@ -16,10 +16,7 @@ namespace UI
         {
             InitializeComponent();
 
-            if (match.Result == null)
-            {
-                throw new ArgumentNullException(nameof(match.Result), "Match.Result cannot be null");
-            }
+            ArgumentNullException.ThrowIfNull(match.Result, nameof(match.Result));
 
             Result result = match.Result;
             WinnerText.Text = GetWinnerText(result.Winner);
