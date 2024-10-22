@@ -15,11 +15,16 @@ namespace Chess.Pieces
             foreach (Vector2D dir in Directions.GetArray())
             {
                 Vector2D? newPos = MoveLogic.GetSinglePosition(from + dir, board);
-                if (newPos != null)
+                if (newPos.HasValue)
                 {
-                    yield return new NormalMove(from, newPos);
+                    yield return new NormalMove(from, newPos.Value);
                 }
             }
+        }
+
+        public override bool IsKingInCheck(Vector2D from, Board board)
+        {
+            return GetMoves(from, board).Any(to => AttackingKing(to, board));
         }
     }
 }
