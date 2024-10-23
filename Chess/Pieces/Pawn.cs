@@ -21,6 +21,26 @@ namespace Chess.Pieces
             return CaptureMoves(from, board).Any(move => AttackingKing(move, board));
         }
 
+        public static bool IsPromotable(Vector2D to)
+        {
+            return to.X == 0 || to.X == Board.ColSize - 1;
+        }
+
+        private static IEnumerable<IMove> PromotionMoves(Vector2D from, Vector2D to)
+        {
+            List<PieceType> promotionTypes = [
+                PieceType.Knight,
+                PieceType.Bishop,
+                PieceType.Rook,
+                PieceType.Queen
+            ];
+
+            foreach (PieceType type in promotionTypes)
+            {
+                yield return new PawnPromotion(from, to, type);
+            }   
+        }
+
         private IEnumerable<IMove> ForwardMoves(Vector2D from, Board board)
         {
             Dictionary<string, Vector2D> dirs = Directions.GetDict();
@@ -37,7 +57,15 @@ namespace Chess.Pieces
             foreach (Vector2D move in moves)
             {
                 Vector2D? newPos = GetSinglePosition(move, board);
-                if (newPos.HasValue && board.IsEmpty(newPos.Value))
+
+                if (newPos.HasValue && IsPromotable(newPos.Value))
+                {
+                    foreach (IMove promotionMove in PromotionMoves(from, newPos.Value))
+                    {
+                        yield return promotionMove;
+                    }
+                }
+                else if (newPos.HasValue && board.IsEmpty(newPos.Value))
                 {
                     yield return new NormalMove(from, newPos.Value);
                 }
@@ -57,7 +85,18 @@ namespace Chess.Pieces
             {
                 if (CanCaptureAt(capPos, board))
                 {
-                    yield return new NormalMove(from, capPos);
+                    // Promote on capture
+                    if (IsPromotable(capPos))
+                    {
+                        foreach (IMove promotionMove in PromotionMoves(from, capPos))
+                        {
+                            yield return promotionMove;
+                        }
+                    } 
+                    else
+                    {
+                        yield return new NormalMove(from, capPos);
+                    }
                 }
             }
         }

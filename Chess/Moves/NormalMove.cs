@@ -6,8 +6,8 @@ namespace Chess.Moves
     public class NormalMove(Vector2D fromPosition, Vector2D toPosition) : IMove
     {
         public MoveType Type => MoveType.Normal;
-        public Vector2D FromPosition { get; } = fromPosition;
-        public Vector2D ToPosition { get; } = toPosition;
+        public Vector2D FromPosition => fromPosition;
+        public Vector2D ToPosition => toPosition;
 
         public void Perform(Board board)
         {
