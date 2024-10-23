@@ -168,7 +168,7 @@ namespace UI
             GameOverMenu gameOverMenu = new GameOverMenu(Match);
             MenuContainer.Content = gameOverMenu;
 
-            gameOverMenu.OptionSelected += option =>
+            gameOverMenu.OnOptionSelected += option =>
             {
                 if (option == Option.Restart)
                 {

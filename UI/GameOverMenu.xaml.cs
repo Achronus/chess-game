@@ -10,7 +10,7 @@ namespace UI
     /// </summary>
     public partial class GameOverMenu : UserControl
     {
-        public event Action<Option>? OptionSelected = null;
+        public event Action<Option>? OnOptionSelected = null;
 
         public GameOverMenu(GameState match)
         {
@@ -47,12 +47,12 @@ namespace UI
 
         private void Restart_Click(object sender, RoutedEventArgs e)
         {
-            OptionSelected?.Invoke(Option.Restart);
+            OnOptionSelected?.Invoke(Option.Restart);
         }
 
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
-            OptionSelected?.Invoke(Option.Exit);
+            OnOptionSelected?.Invoke(Option.Exit);
         }
     }
 }
