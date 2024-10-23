@@ -101,7 +101,14 @@ namespace UI
 
             if (PossibleMoves.TryGetValue(pos, out IMove move))
             {
-                HandleMove(move);
+                if (move.Type == MoveType.PawnPromotion)
+                {
+                    HandlePromotion(move.FromPosition, move.ToPosition);
+                }
+                else
+                {
+                    HandleMove(move);
+                }
             }
         }
 
@@ -115,6 +122,17 @@ namespace UI
             {
                 ShowGameOver();
             }
+        }
+
+        private void HandlePromotion(Vector2D from, Vector2D to)
+        {
+            PieceImages[to.X, to.Y].Source = Images.GetImage(Match.CurrentPlayer.Colour, PieceType.Pawn);
+            PieceImages[from.X, from.Y].Source = Images.GetImage(NoPiece.Instance);
+
+            PromotionMenu menu = new PromotionMenu(Match.CurrentPlayer.Colour);
+            MenuContainer.Content = menu;
+
+            menu.OnPieceSelected += type => OnPiecePromotionClick(from, to, type);
         }
 
         private Vector2D PointToBoardVector2D(Point point)
@@ -169,6 +187,13 @@ namespace UI
             MenuContainer.Content = gameOverMenu;
 
             gameOverMenu.OnOptionSelected += OnGameOverBtnClick;
+        }
+
+        private void OnPiecePromotionClick(Vector2D from, Vector2D to, PieceType type)
+        {
+            MenuContainer.Content = null;
+            IMove move = new PawnPromotion(from, to, type);
+            HandleMove(move);
         }
 
         private void OnGameOverBtnClick(Option option)
