@@ -33,7 +33,7 @@ namespace Chess.Core
             CurrentPlayer = Opponent();
         }
 
-        public bool IsMoveSafeForKing(IMove move)
+        public bool IsMoveSafeForNormalPiece(IMove move)
         {
             Piece currentPosition = Board[move.FromPosition];
             Piece targetPosition = Board[move.ToPosition];
@@ -49,6 +49,52 @@ namespace Chess.Core
             Board[move.ToPosition] = targetPosition;
 
             return !isInCheck;
+        }
+
+        public bool IsMoveSafeForKing(IMove move)
+        {
+            if (move is not Castle)
+            {
+                return IsMoveSafeForNormalPiece(move);
+            }
+
+            if (Board.IsInCheck(Opponent()))
+            {
+                return false;
+            }
+
+            Castle castleMove = (Castle)move;
+            Vector2D kingPosition = move.FromPosition;
+
+            Vector2D[] castleSquares = King.GetCastleSquarePositions(kingPosition, castleMove.Type).Item2;
+
+            foreach (Vector2D square in castleSquares.Append(castleMove.ToPosition))
+            {
+                if (IsSquareAttacked(square))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private bool IsSquareAttacked(Vector2D square)
+        {
+            IEnumerable<Vector2D> opPiecePositions = Opponent().MyPiecePositions(Board);
+
+            foreach (Vector2D opPos in opPiecePositions)
+            {
+                Piece opponentPiece = Board[opPos];
+                IEnumerable<IMove> possibleMoves = opponentPiece.GetMoves(opPos, Board);
+
+                if (possibleMoves.Any(move => move.ToPosition == square))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public IEnumerable<IMove> AllLegalMovesFor(Player player)

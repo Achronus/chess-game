@@ -12,11 +12,6 @@ namespace Chess.Moves
 
         public Castle(MoveType type, Vector2D kingPos)
         {
-            if (type != MoveType.CastleShort || type != MoveType.CastleLong)
-            {
-                throw new ArgumentException($"Invalid MoveType '{type}'. Should be 'CastleShort' or 'CastleLong'.");
-            }
-
             Type = type;
             FromPosition = kingPos;
 

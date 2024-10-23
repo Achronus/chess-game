@@ -65,7 +65,7 @@ namespace UI
         {
             if (IsMenuOnScreen())
             {
-                return;
+                return;  // Cannot click board
             }
 
             Point point = e.GetPosition(ChessBoard);
