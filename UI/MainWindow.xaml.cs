@@ -168,17 +168,20 @@ namespace UI
             GameOverMenu gameOverMenu = new GameOverMenu(Match);
             MenuContainer.Content = gameOverMenu;
 
-            gameOverMenu.OnOptionSelected += option =>
+            gameOverMenu.OnOptionSelected += OnGameOverBtnClick;
+        }
+
+        private void OnGameOverBtnClick(Option option)
+        {
+            if (option == Option.Restart)
             {
-                if (option == Option.Restart)
-                {
-                    MenuContainer.Content = null;
-                    Match = RestartGame();
-                } else
-                {
-                    Application.Current.Shutdown();
-                }
-            };
+                MenuContainer.Content = null;
+                Match = RestartGame();
+            }
+            else
+            {
+                Application.Current.Shutdown();
+            }
         }
 
         private GameState RestartGame()
