@@ -45,30 +45,30 @@ namespace Chess.Pieces
         {
             Dictionary<string, Vector2D> dirs = Directions.GetDict();
 
-            List<Vector2D> moves = [
-                from + dirs[PawnMoves.Forward.ToString()]
-            ];
+            Vector2D forwardOnce = from + dirs[PawnMoves.Forward.ToString()];
 
             if (from == StartPosition)
             {
-                moves.Add(from + dirs[PawnMoves.ForwardDouble.ToString()]);
+                Vector2D forwardTwice = from + dirs[PawnMoves.ForwardDouble.ToString()];
+
+                if (CanMoveTo(forwardTwice, board))
+                {
+                    yield return new DoublePawnMove(from, forwardTwice);
+                }
             }
 
-            foreach (Vector2D pos in moves)
+            if (CanMoveTo(forwardOnce, board))
             {
-                if (CanMoveTo(pos, board))
+                if (IsPromotable(forwardOnce))
                 {
-                    if (IsPromotable(pos))
+                    foreach (IMove promotionMove in PromotionMoves(from, forwardOnce))
                     {
-                        foreach (IMove promotionMove in PromotionMoves(from, pos))
-                        {
-                            yield return promotionMove;
-                        }
-                    } 
-                    else
-                    {
-                       yield return new NormalMove(from, pos);
+                        yield return promotionMove;
                     }
+                } 
+                else
+                {
+                    yield return new NormalMove(from, forwardOnce);
                 }
             }
         }
@@ -84,7 +84,11 @@ namespace Chess.Pieces
 
             foreach (Vector2D capPos in captures)
             {
-                if (CanCaptureAt(capPos, board))
+                if (capPos == board.PawnEnPassantPositions[Opponent()])
+                {
+                    yield return new EnPassant(from, capPos);
+                }
+                else if (CanCaptureAt(capPos, board))
                 {
                     // Promote on capture
                     if (IsPromotable(capPos))

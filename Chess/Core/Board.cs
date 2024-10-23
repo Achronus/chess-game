@@ -7,6 +7,10 @@ namespace Chess.Core
         public static int RowSize { get; } = 8;
         public static int ColSize { get; } = 8;
         private Piece[,] Pieces { get; } = new Piece[RowSize, ColSize];
+        public Dictionary<Colour, Vector2D?> PawnEnPassantPositions { get; set; } = new Dictionary<Colour, Vector2D?> {
+            { Colour.White, null },
+            { Colour.Black, null }
+        };
     
         public Piece this[int row, int col]
         { 

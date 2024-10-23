@@ -29,6 +29,9 @@ namespace Chess.Core
 
         public void MakeMove(IMove move)
         {
+            // Reset EnPassant after next turn
+            Board.PawnEnPassantPositions[CurrentPlayer.Colour] = null;
+
             move.Perform(Board);
             CurrentPlayer = Opponent();
         }

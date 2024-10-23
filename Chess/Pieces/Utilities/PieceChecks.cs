@@ -5,6 +5,11 @@ namespace Chess.Pieces
 {
     public partial class Piece
     {
+        public Colour Opponent()
+        {
+            return Colour == Colour.White ? Colour.Black : Colour.White;
+        }
+
         public bool IsOpponent(Piece otherPiece)
         {
             return Colour != otherPiece.Colour;

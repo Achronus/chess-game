@@ -29,6 +29,7 @@
     public enum MoveType
     { 
         Normal,
+        DoublePawn,
         CastleShort,
         CastleLong,
         EnPassant,
