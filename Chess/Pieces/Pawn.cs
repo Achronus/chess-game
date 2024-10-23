@@ -54,20 +54,21 @@ namespace Chess.Pieces
                 moves.Add(from + dirs[PawnMoves.ForwardDouble.ToString()]);
             }
 
-            foreach (Vector2D move in moves)
+            foreach (Vector2D pos in moves)
             {
-                Vector2D? newPos = GetSinglePosition(move, board);
-
-                if (newPos.HasValue && IsPromotable(newPos.Value))
+                if (CanMoveTo(pos, board))
                 {
-                    foreach (IMove promotionMove in PromotionMoves(from, newPos.Value))
+                    if (IsPromotable(pos))
                     {
-                        yield return promotionMove;
+                        foreach (IMove promotionMove in PromotionMoves(from, pos))
+                        {
+                            yield return promotionMove;
+                        }
+                    } 
+                    else
+                    {
+                       yield return new NormalMove(from, pos);
                     }
-                }
-                else if (newPos.HasValue && board.IsEmpty(newPos.Value))
-                {
-                    yield return new NormalMove(from, newPos.Value);
                 }
             }
         }
