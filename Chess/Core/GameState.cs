@@ -23,6 +23,10 @@ namespace Chess.Core
                 // Not in check -> in checkmate = win
                 Result = !Board.IsInCheck(CurrentPlayer) ? Result.Win(Opponent()) : Result.Draw(GameOverStatus.Stalemate);
             }
+            else if (Board.IsInsufficientMaterial())
+            {
+                Result = Result.Draw(GameOverStatus.InsufficientMaterial);
+            }
 
             return Result != null;
 				}

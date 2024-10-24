@@ -1,4 +1,4 @@
-using Chess.Pieces;
+﻿using Chess.Pieces;
 
 namespace Chess.Core
 {
@@ -133,6 +133,14 @@ namespace Chess.Core
             }
 
             return counts;
+        }
+
+        public bool IsInsufficientMaterial()
+        {
+            PieceCounts counts = CountPieces();
+            InsufficientMaterial insufficientMaterial = new InsufficientMaterial(counts);
+
+            return insufficientMaterial.Is();
         }
     }
 }
