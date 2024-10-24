@@ -11,6 +11,7 @@ namespace Chess.Core
             { Colour.White, null },
             { Colour.Black, null }
         };
+        public PieceCount PieceCounts { get; } = new PieceCount();
     
         public Piece this[int row, int col]
         { 
@@ -64,6 +65,9 @@ namespace Chess.Core
             {
                 Pieces[0, i] = CreatePiece(backRow[i], Colour.Black);
                 Pieces[Pieces.GetLength(0) - 1, i] = CreatePiece(backRow[i], Colour.White);
+
+                PieceCounts.Increase(Colour.Black, backRow[i]);
+                PieceCounts.Increase(Colour.White, backRow[i]);
             }
 
             for (int i = 0; i < RowSize; i++)
@@ -71,6 +75,9 @@ namespace Chess.Core
                 int whiteRowIdx = Pieces.GetLength(0) - 2;
                 Pieces[1, i] = new Pawn(Colour.Black, new Vector2D(1, i));
                 Pieces[whiteRowIdx, i] = new Pawn(Colour.White, new Vector2D(whiteRowIdx, i));
+
+                PieceCounts.Increase(Colour.Black, PieceType.Pawn);
+                PieceCounts.Increase(Colour.White, PieceType.Pawn);
             }
         }
 
