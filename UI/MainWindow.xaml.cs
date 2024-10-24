@@ -129,10 +129,10 @@ namespace UI
             PieceImages[to.X, to.Y].Source = Images.GetImage(Match.CurrentPlayer.Colour, PieceType.Pawn);
             PieceImages[from.X, from.Y].Source = Images.GetImage(NoPiece.Instance);
 
-            PromotionMenu menu = new PromotionMenu(Match.CurrentPlayer.Colour);
+            PromotionMenu menu = new PromotionMenu(Match.CurrentPlayer.Colour, from, to);
             MenuContainer.Content = menu;
 
-            menu.OnPieceSelected += type => OnPiecePromotionClick(from, to, type);
+            menu.OnPieceSelected += OnPiecePromotionClick;
         }
 
         private Vector2D PointToBoardVector2D(Point point)
@@ -189,10 +189,10 @@ namespace UI
             gameOverMenu.OnOptionSelected += OnGameOverBtnClick;
         }
 
-        private void OnPiecePromotionClick(Vector2D from, Vector2D to, PieceType type)
+        private void OnPiecePromotionClick(PromotionEventArgs e)
         {
             MenuContainer.Content = null;
-            IMove move = new PawnPromotion(from, to, type);
+            IMove move = new PawnPromotion(e.From, e.To, e.NewType);
             HandleMove(move);
         }
 
