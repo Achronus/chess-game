@@ -9,8 +9,8 @@ It includes:
 - [X] Pawn promotion
 - [X] Castling short and long
 - [X] Checkmate
-- [ ] Draw conditions
-  - [ ] Insufficient material
+- [X] Draw conditions
+  - [X] Insufficient material
   - [X] Stalemate
 
 Extensions could include:
